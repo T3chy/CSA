@@ -25,6 +25,7 @@ int hash(char *key) {
         hashsum = hashsum % capacity;
     }
     hashsum = hashsum % capacity;
+    printf("hash for %s is %d \n",key,hashsum);
     return hashsum;
 
 }
@@ -75,6 +76,15 @@ int add(node_t map[], char *key, char *value) {
         return 1;
     }
 }
+int delete(node_t map[], char * key) {
+  printf("actually write this lmao"); //write this
+  return 1;
+}
+void printMap(node_t map[]) {
+  for (int i=0; i < sizeof(*map); i++) {
+    printf("%s \n", map[i].value);
+  }
+}
 void printList(struct node *temp) 
 { 
     printf("list items: \n");
@@ -90,5 +100,6 @@ int main() {
     add(map, "not elam", "not gamrt");
     add(map, "d elam", "not d");
     find("d elam",map);
+
   return 0;
 }
