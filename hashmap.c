@@ -84,10 +84,11 @@ void printList(struct node *temp)
      temp = temp->next; 
   } 
 } 
-void main() {
+int main() {
     node_t * map = initalize(50);
-    add(map, "Elam", "fucka");
-    add(map, "not elam", "not fucka");
-        add(map, "d elam", "not d");
+    add(map, "Elam", "ganer");
+    add(map, "not elam", "not gamrt");
+    add(map, "d elam", "not d");
     find("d elam",map);
+  return 0;
 }
