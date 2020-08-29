@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h> 
 #include <math.h>
-int capacity = 50;
+#define capacity 50
 struct node {
     char*key;
     char* value;
@@ -94,12 +94,38 @@ void printList(struct node *temp)
      temp = temp->next; 
   } 
 } 
+void writetheory(struct node booktowrite[]) {
+    FILE * fp; 
+    fp = fopen ("bookz", "wb");
+    if (fp != NULL) {
+        fwrite(booktowrite, sizeof(struct node), capacity , fp);
+        fclose(fp);
+        printf("file opened \n");
+    } else {
+        printf("something went wrong opening the file\n");
+}
+}
+void readtheory(){
+    FILE * fp; 
+    struct node mybook[capacity];
+     fp = fopen ("bookz", "rb");
+    printf("file opened \n");
+    if (fp != NULL) {
+        fread(&mybook, sizeof(struct node), capacity, fp);
+        fclose(fp);
+        printf("file opened\n");
+        printf("book title is %s",mybook[hash("Elam")].value);
+    } else {
+        printf("something went wrong opening the file\n");
+}  
+}
 int main() {
     node_t * map = initalize(50);
     add(map, "Elam", "ganer");
     add(map, "not elam", "not gamrt");
     add(map, "d elam", "not d");
     find("d elam",map);
-
+    writetheory(map);
+    readtheory();
   return 0;
 }
