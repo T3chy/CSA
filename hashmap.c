@@ -25,8 +25,8 @@ int hash(char *key) {
         hashsum = hashsum % capacity;
     }
     hashsum = hashsum % capacity;
-    return hashsum;
-
+  //  return hashsum;
+    return 1;
 }
 char* find(char *key, node_t map[]) {
     int hashval = hash(key);
@@ -42,6 +42,7 @@ char* find(char *key, node_t map[]) {
         } else {
             node_t * temp = &map[hashval];
             while (temp -> next != NULL) {
+         //       printf("searching %s", temp -> key);
                 if (temp -> key == key) {
            //     printf("Item found! Value is: %s \n", temp -> value);
                 return temp -> value;                    
@@ -77,8 +78,34 @@ int add(node_t map[], char *key, char *value) {
     }
 }
 int delete(node_t map[], char * key) {
-  printf("actually write this lmao"); //write this
-  return 1;
+ int hashval = hash(key);
+    if (map[hashval].value == "none") {
+        return 1;
+    }
+    else {
+        if (map[hashval].key == key) {
+          //  printf("fuck");
+                node_t * temp = &map[hashval];
+              temp -> key = temp -> next -> key;          
+              temp -> value = temp -> next -> value;
+              temp-> next = temp ->next -> next;
+                return 0;
+        } else {
+            node_t * temp = &map[hashval];
+            while (temp -> next != NULL) {
+                if (temp -> next -> key == key) {
+                    free(temp -> next);
+                    temp -> next = temp -> next -> next;
+
+                return 0;                    
+                }
+                temp = temp -> next;
+            }
+        return 1;
+        }
+      //  printf("something messed up lmao\n");
+        return 0;
+    }
 }
 void printMap(node_t map[]) {
   for (int i=0; i < sizeof(*map); i++) {
@@ -120,7 +147,7 @@ node_t * readtheory(){
         printf("something went wrong opening the file\n");
 }  return mybooks;
 }
-int main() {
+int not_main() {
     // node_t * map = initalize(50);
     // add(map, "Elam", "ganer");
     // add(map, "not elam", "not gamrt");
@@ -159,4 +186,14 @@ int main() {
        }
    }
   return 0;
+}
+int main() {
+    node_t * library = initalize();
+    add(library, "elam","elam's book");
+    add(library, "not elam", "not elam's book");
+    add(library, "also not elam", "also not elam's book");
+    printf("book is %s \n",find("not elam",library));
+    delete(library, "not elam");
+    printf("book is %s \n",find("not elam",library));
+    printf("book is %s \n",find("also not elam",library));
 }
